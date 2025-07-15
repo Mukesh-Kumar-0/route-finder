@@ -8,7 +8,7 @@ function calculateTimeDifference(startTime: string, endTime: string): string {
   const [startHour, startMin] = startTime.split(':').map(Number);
   const [endHour, endMin] = endTime.split(':').map(Number);
   
-  let startMinutes = startHour * 60 + startMin;
+  const startMinutes = startHour * 60 + startMin;
   let endMinutes = endHour * 60 + endMin;
   
   // Handle next day scenarios
@@ -54,9 +54,7 @@ function findDirectRoutes(fromStationId: string, toStationId: string): DirectRou
 
 function findMultiTrainRoutes(fromStationId: string, toStationId: string): MultiTrainRoute[] {
   const multiRoutes: MultiTrainRoute[] = [];
-  const maxConnections = 2; // Limit to 2 trains for simplicity
-  
-  // Find all possible intermediate stations
+  const maxConnections = 2; 
   const intermediateStations = new Set<string>();
   
   for (const train of trains) {
@@ -64,7 +62,6 @@ function findMultiTrainRoutes(fromStationId: string, toStationId: string): Multi
     const toIndex = train.stops.findIndex(stop => stop.stationId === toStationId);
     
     if (fromIndex !== -1) {
-      // Add all stations that come after the from station
       for (let i = fromIndex + 1; i < train.stops.length; i++) {
         intermediateStations.add(train.stops[i].stationId);
       }
@@ -87,7 +84,7 @@ function findMultiTrainRoutes(fromStationId: string, toStationId: string): Multi
         const [arrHour, arrMin] = arrivalTime.split(':').map(Number);
         const [depHour, depMin] = departureTime.split(':').map(Number);
         
-        let arrMinutes = arrHour * 60 + arrMin;
+        const arrMinutes = arrHour * 60 + arrMin;
         let depMinutes = depHour * 60 + depMin;
         
         if (depMinutes < arrMinutes) {
